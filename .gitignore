@@ -1,2 +1,5 @@
 *.jar
 *.zip
+build/
+dist/
+deps/

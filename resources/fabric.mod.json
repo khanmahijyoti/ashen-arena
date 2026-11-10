@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "ashen_arena",
+  "version": "1.0.0-alpha.1",
+  "name": "Ashen Arena",
+  "description": "A protected single-player combat arena with an Ashen Ogre boss, directional dodges and a guarding katana. F8 places the entrance; E enters.",
+  "license": "LicenseRef-All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {"main": ["arena.ArenaMod"]},
+  "mixins": ["ashen-arena.mixins.json"],
+  "depends": {"fabricloader": ">=0.20.1", "fabric-api": ">=0.166.0", "minecraft": "26.3", "java": ">=25"}
+}

@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "package": "arena.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["ServerMixin", "ProtectedLevelMixin", "ProtectedMiningMixin", "ProtectedExplosionMixin", "ProtectedPistonMixin", "SwordCreativeMixin", "SwordRespawnMixin", "OgreMobMixin"],
+  "client": ["KeyboardMixin", "ClientMixin", "ProtectedClientMiningMixin", "DodgeOptionsMixin", "DodgeTravelMixin", "OgreEventMixin", "OgreRenderStateMixin", "OgreRendererMixin", "OgreModelMixin", "OgreMusicManagerMixin", "OgreMusicVolumeMixin"],
+  "injectors": {"defaultRequire": 1}
+}

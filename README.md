@@ -57,6 +57,12 @@ For bugs, include Minecraft/Fabric versions, steps to reproduce, other installed
 
 The mod contains original code and model definitions that reference Minecraft resources. It does **not** bundle Minecraft music, textures, game code, Fabric API, or personal worlds. Music comes from the player's own Minecraft installation and is amplified during playback.
 
-All rights reserved; see [LICENSE](LICENSE). This public repository hosts release information and downloads; it is not an open-source release.
+This branch contains the mod source and build files. All rights reserved; see [LICENSE](LICENSE). Source availability does not change the license.
+
+## Build from source
+
+On Windows, run Minecraft Java 26.3 once with the official launcher so its game JAR, libraries, and Java 25 runtime are installed under `%APPDATA%\.minecraft`. Place the build dependencies in `deps/`: Fabric Loader 0.20.1, Fabric API 0.166.0+26.3, and the Sponge Mixin and ASM JARs listed in the Fabric Loader 26.3 profile. Use the installed copies or download them from their official publishers. Dependencies are kept outside version control.
+
+Run `./build.ps1` in PowerShell to compile the Java sources and package the resources into `dist/ashen-arena-1.0.0.jar`. The model generator is optional; its generated JSON is already included.
 
 NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT. Minecraft belongs to its respective owners.
