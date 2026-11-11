@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SwordRespawnMixin {
     @Inject(method="respawn",at=@At("RETURN"))
     private void arena$respawnSword(ServerPlayer previous,boolean alive,Entity.RemovalReason reason,CallbackInfoReturnable<ServerPlayer> cir) {
-        // End-portal returns use this method too; only death respawns get replacement weapons.
         if(!alive) ArenaLoadout.afterDeathRespawn(cir.getReturnValue());
     }
 }

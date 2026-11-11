@@ -5,7 +5,6 @@ import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
 import com.mojang.blaze3d.platform.InputConstants;
 
-/** Client input only; world edits, proximity checks and teleports belong to the server. */
 public final class ArenaClient {
     private static IntegratedServer seen;
     private static int ticks;
@@ -44,6 +43,7 @@ public final class ArenaClient {
                 }
             });
         }
-        return true; // Consume releases/repeats as well, so E never queues an inventory opening.
+        return true;
     }
 }
+

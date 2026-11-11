@@ -1,4 +1,3 @@
-"""Create the native Minecraft cuboid model; uses only built-in block textures."""
 import json
 from pathlib import Path
 
@@ -11,7 +10,6 @@ def box(start, end, material, uv=(4, 4, 12, 12)):
                      'faces': {face: {'uv': list(uv), 'texture': '#' + material}
                                for face in ('north', 'south', 'east', 'west', 'up', 'down')}})
 
-# Dark tang with a red wrap, gold pommel and a broad, thin tsuba.
 box([7, -2, 7], [9, 6.7, 9], 'grip')
 for y in (-1, 1, 3, 5):
     box([6.95, y, 6.95], [9.05, y + .65, 9.05], 'wrap')
@@ -19,7 +17,6 @@ box([6.8, -2.6, 6.8], [9.2, -1.7, 9.2], 'gold')
 box([5.2, 6.6, 6.4], [10.8, 7.5, 9.6], 'gold')
 box([6.2, 6.6, 5.7], [9.8, 7.5, 10.3], 'gold')
 box([7.3, 7.5, 7.5], [8.9, 8.5, 8.5], 'gold')
-# A shallow curve and a stepped point preserve the Minecraft shape language.
 box([7.5, 8.5, 7.65], [8.9, 22, 8.35], 'steel')
 box([7.75, 22, 7.65], [9.15, 27, 8.35], 'steel')
 box([8.05, 27, 7.7], [9.15, 29, 8.3], 'steel')

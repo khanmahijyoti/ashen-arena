@@ -11,7 +11,6 @@ public final class DodgeControls {
     public static KeyMapping dodge;
     private static boolean initialized;
 
-    /** Called before Options.load so the normal controls screen and options persistence include Dodge. */
     public static KeyMapping[] register(KeyMapping[] mappings) {
         for(var mapping:mappings) if(mapping.getName().equals(NAME)) { dodge=mapping; return mappings; }
         dodge=new KeyMapping(NAME,InputConstants.KEY_LSHIFT,KeyMapping.Category.MOVEMENT);
@@ -29,7 +28,6 @@ public final class DodgeControls {
             Path options=root.resolve("options.txt"), backup=root.resolve("options.before-ashen-dodge.txt");
             if(Files.exists(options) && !Files.exists(backup)) Files.copy(options,backup);
             mc.options.keyShift.setKey(InputConstants.getKey("key.keyboard.left.control"));
-            // Left Ctrl is now crouch; retain dedicated sprint on Right Ctrl.
             if(mc.options.keySprint.saveString().equals("key.keyboard.left.control"))
                 mc.options.keySprint.setKey(InputConstants.getKey("key.keyboard.right.control"));
             mc.options.keyShift.setDown(false);

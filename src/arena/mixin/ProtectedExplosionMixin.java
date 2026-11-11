@@ -17,7 +17,6 @@ public class ProtectedExplosionMixin {
     @Shadow @Final private ServerLevel level;
     @ModifyVariable(method={"interactWithBlocks","createFire"},at=@At("HEAD"),argsOnly=true)
     private List<BlockPos> arena$filterBlast(List<BlockPos> positions) {
-        // Remove blocks before explosion callbacks and loot calculation, avoiding duplicate drops.
         List<BlockPos> allowed=new ArrayList<>(positions.size());
         for(BlockPos pos:positions) if(!ArenaService.protectedBlock(level,pos)) allowed.add(pos);
         return allowed;

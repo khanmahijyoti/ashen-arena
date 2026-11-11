@@ -11,7 +11,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 
-/** Native streamed music, one instance per encounter, controlled by aggro status messages. */
 public final class OgreMusic {
     private static ClientLevel world;
     private static UUID encounter;
@@ -67,7 +66,6 @@ public final class OgreMusic {
         if(mc.getSoundManager().play(next)!=SoundEngine.PlayResult.NOT_STARTED) { track=next; starts++; }
     }
     public static boolean suppressAmbient() { return wanted || (track!=null && !track.isStopped()); }
-    /** Amplify only this quiet vanilla track at playback; no Minecraft audio is redistributed. */
     public static boolean isBattleTrack(SoundInstance sound) { return sound instanceof BattleTrack; }
     private static void stopImmediately() {
         wanted=false;

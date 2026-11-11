@@ -23,7 +23,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 
-/** One arena-scoped actor. Native navigation/physics handle movement; this controls attack timings. */
 public final class OgreEncounter {
     public static final String NAME="Ashen Ogre",TAG="ashen_arena_ogre";
     public static final float HEALTH=140;
@@ -84,7 +83,6 @@ public final class OgreEncounter {
             s.target=target.getUUID(); phase(s,Phase.INTRO);
         }
         s.age++;
-        // Allow the spawn packet to reach clients, then begin the score when a live target is noticed.
         if(!s.music && s.age>=2) { s.music=true; boss.level().broadcastEntityEvent(boss,MUSIC_START); }
         else if(s.music && server.getTickCount()%40==0) boss.level().broadcastEntityEvent(boss,MUSIC_START);
         switch(s.phase) {
@@ -132,7 +130,6 @@ public final class OgreEncounter {
                 }
             }
             case RECOVER -> {
-                // Continue visually following the same victim through the kick's follow-through.
                 if(s.attacks%2==0 && s.age<10) faceTarget(s,target);
                 if(s.age>=24) phase(s,Phase.CHASE);
             }
@@ -178,12 +175,10 @@ public final class OgreEncounter {
     private static void trackWindup(State s,ServerPlayer target,int commitAge) {
         if(s.age<commitAge) {
             faceTarget(s,target);
-            // A short approach keeps a circling player in reach; use native navigation for collisions.
             if(s.age<commitAge-4 && s.boss.distanceToSqr(target)>2.2*2.2 && s.boss.hasLineOfSight(target)) {
                 if(s.age%4==1) s.boss.getNavigation().moveTo(target,1.35);
             } else s.boss.getNavigation().stop();
         } else s.boss.getNavigation().stop();
-        // The final 0.2s of a grab / 0.15s of a kick commit to this aim, allowing a late dodge.
         faceAim(s);
     }
     private static void cue(State s,boolean grab) {

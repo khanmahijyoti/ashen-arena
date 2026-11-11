@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelResource;
 
-/** All mutable state and world operations are confined to the server thread. */
 public final class ArenaService {
     private static final Map<MinecraftServer, State> STATES = Collections.synchronizedMap(new WeakHashMap<>());
     private static final System.Logger LOG = System.getLogger("AshenArena");
@@ -72,7 +71,6 @@ public final class ArenaService {
             s.phase = p.getProperty("phase");
             if (!Set.of("verify","build","ready").contains(s.phase)) throw new IOException("Invalid phase");
             if (s.ay != 256 || Math.abs((long)s.ax) > 29999000 || Math.abs((long)s.az) > 29999000) throw new IOException("Invalid hall coordinates");
-            // A reserved build can be replayed safely after a crash. Verification never writes blocks.
             s.publish();
         } catch (Exception e) { s.phase = "error"; LOG.log(System.Logger.Level.ERROR,"Cannot read arena state; edits disabled",e); }
         return s;
@@ -124,7 +122,6 @@ public final class ArenaService {
                 BlockPos pos=new BlockPos(s.ax+c[0],s.ay+c[1],s.az+c[2]);
                 if(s.phase.equals("verify")) {
                     if(!level.isEmptyBlock(pos) || !level.getWorldBorder().isWithinBounds(pos)) {
-                        // Leave existing structures untouched; try a different reserved sky location.
                         if(++s.attempts>8) throw new IOException("No clear hall location found after eight attempts");
                         s.ax+=128; s.cursor=0;
                         if(Math.abs((long)s.ax)>29998000) throw new IOException("No clear space within world border");
@@ -159,7 +156,6 @@ public final class ArenaService {
         double x=inside?s.gx+.5:s.ax+.5, y=inside?s.gy:s.ay+1, z=inside?s.gz-3.5:s.az+4.5;
         var level=server.overworld();
         BlockPos feet=BlockPos.containing(x,y,z);
-        // Do not send a player into a broken floor, obstructed exit, or fluid.
         if(!level.isEmptyBlock(feet) || !level.isEmptyBlock(feet.above()) || !level.getBlockState(feet.below()).isSolidRender()) {
             tell(player,"Destination is obstructed. Clear the doorway and repair its floor first."); return;
         }

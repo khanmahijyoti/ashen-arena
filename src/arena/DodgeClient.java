@@ -6,7 +6,6 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.phys.Vec3;
 
-/** A short client-predicted quickstep, sent through normal Minecraft movement packets. */
 public final class DodgeClient {
     private static final double[] SPEED={.72,.66,.58,.48,.38,.26};
     public static final int COOLDOWN=14;
@@ -26,7 +25,6 @@ public final class DodgeClient {
     public static boolean key(int action,KeyEvent event) {
         var mc=Minecraft.getInstance();
         if(mc.player==null || mc.getSingleplayerServer()==null || mc.gui.screen()!=null) return false;
-        // Remember actual press order, never OS key-repeat order. Direction remaps are respected.
         if(action==InputConstants.PRESS) {
             if(mc.options.keyUp.matches(event)) { lastForward=1; lastRight=0; }
             if(mc.options.keyDown.matches(event)) { lastForward=-1; lastRight=0; }
@@ -40,7 +38,7 @@ public final class DodgeClient {
             if(forward==0 && right==0) { forward=lastForward; right=lastRight; }
             start(mc.player,forward,right);
         }
-        return true; // Shift is a quickstep, never vanilla crouch or dismount.
+        return true;
     }
     public static Vec3 direction(float yaw,int forward,int right) {
         double angle=Math.toRadians(yaw);
@@ -61,7 +59,6 @@ public final class DodgeClient {
             && !player.isInLava() && !player.onClimbable() && !player.isBlocking() && !crouching(player);
     }
     private static boolean crouching(LocalPlayer player) {
-        // Read the binding as well as the pose: Ctrl and Shift can arrive before the next input tick.
         return Minecraft.getInstance().options.keyShift.isDown() || player.isShiftKeyDown()
             || player.isCrouching() || player.getPose()==net.minecraft.world.entity.Pose.CROUCHING;
     }

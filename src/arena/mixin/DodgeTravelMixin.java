@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** Vanilla travel keeps its collision, gravity and fall handling throughout the quickstep. */
 @Mixin(Player.class)
 public class DodgeTravelMixin {
     @Inject(method="travel",at=@At("HEAD"))

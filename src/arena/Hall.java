@@ -3,7 +3,6 @@ package arena;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** Coordinates relative to the hall centre at its southern entrance. No external assets. */
 public final class Hall {
     public static final int HALF = 24, LENGTH = 64, HEIGHT = 30;
     public static final int VOLUME = (HALF * 2 + 1) * (LENGTH + 1) * (HEIGHT + 1);
@@ -25,7 +24,6 @@ public final class Hall {
             return Blocks.DEEPSLATE_TILES.defaultBlockState();
         }
         if (y == HEIGHT) return ((ax <= 1 && z % 8 < 3) ? Blocks.SHROOMLIGHT : Blocks.DEEPSLATE_TILES).defaultBlockState();
-        // Recessed gold windows alternate with severe dark masonry.
         if (ax == HALF || z == LENGTH || z == 0) {
             if (z == 0 && ax <= 2 && y <= 6) return Blocks.STAINED_GLASS.yellow().defaultBlockState();
             if (ax == HALF && z % 10 >= 3 && z % 10 <= 6 && y >= 9 && y <= 23)
@@ -33,12 +31,10 @@ public final class Hall {
             if (y == 1 || y == 7 || y == 25 || y == 29) return Blocks.CHISELED_POLISHED_BLACKSTONE.defaultBlockState();
             return Blocks.DEEPSLATE_BRICKS.defaultBlockState();
         }
-        // Two rows of columns and raised arch ribs leave a broad combat floor.
         if ((ax == 16 || ax == 17) && z >= 8 && z <= 58 && z % 10 <= 1) {
             return (y <= 2 || y >= 24 ? Blocks.CHISELED_POLISHED_BLACKSTONE : Blocks.POLISHED_BLACKSTONE_BRICKS).defaultBlockState();
         }
         if (z >= 8 && z <= 58 && z % 10 <= 1 && y >= 27 - ax / 5) return Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
-        // Red hanging standards, inset lighting, dais and empty throne.
         if (ax == 22 && z % 10 == 5 && y >= 12 && y <= 23) return Blocks.WOOL.red().defaultBlockState();
         if (ax == 20 && z % 10 == 0 && y == 2) return Blocks.SHROOMLIGHT.defaultBlockState();
         if (z >= 56 && z <= 62 && ax <= 7 && y <= 2) return Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
@@ -56,3 +52,4 @@ public final class Hall {
         return null;
     }
 }
+

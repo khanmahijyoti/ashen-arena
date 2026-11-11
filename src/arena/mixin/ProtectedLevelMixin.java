@@ -16,7 +16,6 @@ public class ProtectedLevelMixin {
     private void arena$immutable(BlockPos pos, BlockState state, int flags, int depth, CallbackInfoReturnable<Boolean> cir) {
         if(ArenaService.protectedBlock((Level)(Object)this,pos)) cir.setReturnValue(false);
     }
-    // Stop destruction before drops, particles, or block-entity cleanup occur.
     @Inject(method="destroyBlock",at=@At("HEAD"),cancellable=true)
     private void arena$noDrops(BlockPos pos, boolean drops, Entity entity, int depth, CallbackInfoReturnable<Boolean> cir) {
         if(ArenaService.protectedBlock((Level)(Object)this,pos)) cir.setReturnValue(false);

@@ -9,7 +9,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.LevelResource;
 
-/** One starter sword, plus a replacement after death if the respawned player has none. */
 public final class ArenaLoadout {
     private static final Map<MinecraftServer,State> STATES=new WeakHashMap<>();
     private static final class State {
@@ -43,7 +42,6 @@ public final class ArenaLoadout {
         if(s.failed) return;
         s.given.remove(player.getUUID().toString());
         s.warned.remove(player.getUUID());
-        // Persist a pending grant as well, so a full inventory can be retried after reconnecting.
         save(server,s);
         issue(server,player,s);
     }

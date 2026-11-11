@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class OgreMusicVolumeMixin {
     @Inject(method="calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F",at=@At("RETURN"),cancellable=true)
     private void arena$battleMusicGain(SoundInstance sound,CallbackInfoReturnable<Float> ci) {
-        // +24 dB after the normal instance clamp. Category/master mute still multiply normally.
         if(OgreMusic.isBattleTrack(sound)) ci.setReturnValue(ci.getReturnValue()*15.848932f);
     }
 }
